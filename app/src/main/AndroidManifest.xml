@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.theowni.remotecontroldetector">
 
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 
     <application
         android:allowBackup="true"
@@ -15,10 +16,23 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
+<!--    <queries>-->
+<!--        &lt;!&ndash; Whitelist of application &ndash;&gt;-->
+<!--        <package android:name="com.teamviewer.quicksupport.addon.universal" /> &lt;!&ndash; didnt detect network port in use &ndash;&gt;-->
+<!--        <package android:name="com.teamviewer.quicksupport.addon.aosp7" /> &lt;!&ndash; didnt detect network port in use &ndash;&gt;-->
+<!--        <package android:name="com.teamviewer.quicksupport.market" /> &lt;!&ndash; didnt detect network port in use &ndash;&gt;-->
+<!--        <package android:name="com.teamviewer.quicksupport.market.mobile" />-->
+<!--        <package android:name="com.anydesk.anydeskandroid" />-->
+<!--        <package android:name="com.anydesk.adcontrol.ad1" />-->
+<!--        <package android:name="com.anydesk.adcontrol.pointmobile1" />-->
+<!--        <package android:name="com.anydesk.formuler1" />-->
+<!--        <package android:name="com.anydesk.formulergtv1" />-->
+<!--        <package android:name="com.anydesk.adcontrol.dingtalk1" />-->
+<!--    </queries>-->
 
 </manifest>

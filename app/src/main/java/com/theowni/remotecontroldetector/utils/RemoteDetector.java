@@ -1,6 +1,8 @@
 package com.theowni.remotecontroldetector.utils;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.InstallSourceInfo;
@@ -519,6 +521,7 @@ public class RemoteDetector {
         String result = "";
         try {
             // Executes the command.
+            // problem with android >10; the /proc/net is not accessed by application
             String[] cmdline = {"netstat", "-tulpn"};
             Process pr = Runtime.getRuntime().exec(cmdline);
             BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
@@ -540,6 +543,8 @@ public class RemoteDetector {
             throw new RuntimeException(e);
         }
 
+        Log.d(logTag, "result");
+        Log.d(logTag, result);
         for (AppDetectionConfig appConfig : appDetectionConfigs) {
             List<String> ports = new ArrayList<>(appConfig.usedLocalPorts);
             ports.addAll(appConfig.usedRemotePorts);
@@ -552,6 +557,9 @@ public class RemoteDetector {
                 Pattern pattern = Pattern.compile(protocol + ".*:" + number, Pattern.MULTILINE);
                 Matcher matcher = pattern.matcher(result);
 
+                Log.d(logTag, "Pattern");
+                Log.d(logTag, pattern.toString());
+                Log.d(logTag, String.valueOf(matcher.find()));
                 if (matcher.find()) {
                     Log.d(logTag, "Suspicious port in use: " + port + " - " + appConfig.appName);
                     retApps.addAll(appConfig.appPackageNames);

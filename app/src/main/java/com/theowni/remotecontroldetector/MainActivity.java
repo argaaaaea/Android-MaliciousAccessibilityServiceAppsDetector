@@ -7,13 +7,13 @@ import android.widget.Switch;
 import com.theowni.remotecontroldetector.utils.RemoteDetector;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
 import java.util.Set;
 import com.google.common.collect.Sets;
 
 public class MainActivity extends BaseSecureActivity {
     String logTag = "MainActivity";
+
+    Boolean debugMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MainActivity extends BaseSecureActivity {
         Log.d(logTag, "Lists AccessibilityServices permitted to overlay");
         Set<String> accessibilityServicesPermittedToOverlay = remoteDetector.getAccessibilityServicesPermittedToOverlay();
 
+        Log.d(logTag, appsWithSuspiciousPortsInUse.toString());
         if (Sets.intersection(
                 appsWithSuspiciousASvcsEnabled,
                 appsWithSuspiciousPortsInUse)
@@ -70,6 +71,9 @@ public class MainActivity extends BaseSecureActivity {
         if (appsWithSuspiciousASvcsEnabled.size() > 0) {
             Log.d(logTag, "Suspicious AccessibilityService enabled");
             ((Switch) findViewById(R.id.switch4)).setChecked(true);
+            if (!debugMode) {
+                throw new RuntimeException("This application crashed");
+            }
         }
 
         if (Sets.intersection(
@@ -78,6 +82,9 @@ public class MainActivity extends BaseSecureActivity {
                 .size() > 0) {
             Log.d(logTag, "AccessibilityService with suspicious capabilities enabled");
             ((Switch) findViewById(R.id.switch5)).setChecked(true);
+            if (!debugMode) {
+                throw new RuntimeException("This application crashed");
+            }
         }
 
         if (Sets.intersection(
@@ -86,6 +93,9 @@ public class MainActivity extends BaseSecureActivity {
                 .size() != 0) {
             Log.d(logTag, "AccessibilityService with suspicious capabilities installed");
             ((Switch) findViewById(R.id.switch6)).setChecked(true);
+            if (!debugMode) {
+                throw new RuntimeException("This application crashed");
+            }
         }
     }
 }
